@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>OpenFB Sample</title>
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body ng-app="starter">
+
+  <div ng-controller="ExampleController">
+    <button class="button" ng-click="facebookLogin()">Facebook</button>
+    <button class="button" ng-click="twitterLogin()">Twitter</button>
+
+    <div class="list card">
+      <div class="item item-avatar">
+        <img ng-src="{{profileData.picture.data.url}}">
+        <h2>{{profileData.name}}</h2>
+        <p>{{profileData.id}}</p>
+      </div>
+      <a href="#" class="item item-icon-left">
+        <i class="icon"></i>
+        {{profileData.website}}
+      </a>
+      <a href="#" class="item item-icon-left">
+        <i class="icon"></i>
+        {{profileData.location.name}}
+      </a>
+      <a href="#" class="item item-icon-left">
+        <i class="icon"></i>
+        {{profileData.relationship_status}}
+      </a>
+    </div>
+
+
+
+  </div>
+
+  <!--cordova.js is automatically injected by the Cordova build process-->
+  <!--<script src="sha.js"></script>-->
+
+  <script src="cordova.js"></script>
+  <script src="angular/angular.js"></script>
+  <script src="cordova/ng-cordova-oauth.js"></script>
+
+  <script>
+
+
+  var isMobile = navigator.userAgent.match(/Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile/i) ? true : false;
+
+  //alert((isMobile ? "true" : "false") + "   " + navigator.userAgent);
+
+
+
+  angular.module('starter', ['ngCordovaOauth'])
+
+  .controller("ExampleController", function($scope, $cordovaOauth, $http) {
+
+    $scope.twitterLogin = function() {
+      $cordovaOauth.twitter("AdP3nCuoSB85iDl6XSiJWBKJS", "RILnNKE2PKj5AUhhDCvQeUwlaeoTp4HRGE0fhwCuv40Nz3KAja").then(function(result) {
+        alert("ok "); // + JSON.stringify(result));
+      }, function(error) {
+        alert("ko "); // + JSON.stringify(error));
+      });
+    };
+
+    $scope.facebookLogin = function() {
+
+      $cordovaOauth.facebook("601650163316034", ["email"], {"auth_type": "rerequest"}).then(function(result) {
+
+        //console.log(JSON.stringify(result));
+        alert(JSON.stringify(result));
+
+        $http.get("https://graph.facebook.com/v2.2/me", { params: { access_token: result.access_token, fields: "id,name,gender,location,website,picture,relationship_status", format: "json" }}).then(function(result) {
+          $scope.profileData = result.data;
+        }, function(error) {
+          alert("There was a problem getting your profile.  Check the logs for details.");
+          console.log(error);
+        });
+
+      }, function(error) {
+        console.log(JSON.stringify(error));
+        alert("ko");
+      });
+    }
+
+  });
+
+
+
+  </script>
+</body>
+</html>

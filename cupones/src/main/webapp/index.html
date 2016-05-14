@@ -1,0 +1,233 @@
+<html lang="en" ng-app="cuponesApp">
+
+  <head>
+    <meta charset="utf-8">
+    <title>Cupones</title>
+<!--     <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">
+ -->
+ 	<meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+
+    <link rel="stylesheet" href="css/app.css" />
+	<link rel="stylesheet" href="bootstrap3/css/bootstrap.min.css">
+	<link rel="stylesheet" href="bootstrap3/css/font-awesome.css">
+
+	<style>
+	
+/* 	input:invalid {
+  		border: 1px solid red;
+	} */
+	
+	.thumbnail {
+	  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+	}
+	[class*="row"] {
+	  margin-bottom: 1rem;
+	  -webkit-box-pack: center;
+	  -webkit-justify-content: center;
+	      -ms-flex-pack: center;
+	          justify-content: center;
+	}
+
+	/* .navbar {
+		border-radius: 0 !important;
+	} */
+
+	/* Para incluir texto en una imagen */
+	body {
+	  text-align: left;
+	}
+
+	.overlay {
+	   	width: 100%;
+	  	background-color: rgba(0, 0, 0, 0);
+	    position: absolute;
+	    top: 80;
+	  	color: white;
+	  	padding: 20px;
+	}
+	</style>
+
+	<!-- Login -->
+	<style type="text/css">
+		#login-dp{
+		    min-width: 250px;
+		    padding: 14px 14px 0;
+		    overflow:hidden;
+		    background-color:rgba(255,255,255,.8);
+		}
+		#login-dp .help-block{
+		    font-size:12px
+		}
+		#login-dp .bottom{
+		    background-color:rgba(255,255,255,.8);
+		    border-top:1px solid #ddd;
+		    clear:both;
+		    padding:14px;
+		}
+		#login-dp .social-buttons{
+		    margin:12px 0;
+		}
+		#login-dp .social-buttons a{
+		    width: 49%;
+		}
+		#login-dp .form-group {
+		    margin-bottom: 10px;
+		}
+		.btn-fb{
+		    color: #fff;
+		    background-color:#3b5998;
+		}
+		.btn-fb:hover{
+		    color: #fff;
+		    background-color:#496ebc
+		}
+		.btn-tw{
+		    color: #fff;
+		    background-color:#55acee;
+		}
+		.btn-tw:hover{
+		    color: #fff;
+		    background-color:#59b5fa;
+		}
+		@media(max-width:768px){
+		    #login-dp{
+		        background-color: inherit;
+		        color: #fff;
+		    }
+		    #login-dp .bottom{
+		        background-color: inherit;
+		        border-top:0 none;
+		    }
+		}
+	</style>
+
+  </head>
+
+<body ng-controller="HomeController">
+
+	<!-- navbar-transparent -->
+	<nav id="main-menu" class="navbar navbar-fixed-top navbar-inverse templatemo-nav" role="navigation">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                	<span class="icon-bar"></span>
+                	<span class="icon-bar"></span>
+                	<span class="icon-bar"></span>
+                </button>
+				<h3 class="list-item" style="margin-left:10px"><font color="white">COUPON</font><font color="orange">LAND</font></h3>
+<!-- 				<a href="#"><img style="margin: 4px" src="img/user7-128x128.jpg" alt="logo"></a>
+ -->		</div>
+			<div class="collapse navbar-collapse">
+				<ul class="nav navbar-nav navbar-right text-uppercase">
+					<li>
+		              <a href="#/" class="list-item">cupones</a>
+					</li>
+					<li>
+		              <a href="#/clientes" class="list-item">clientes</a>
+					</li>
+					<li>
+		              <a href="#/proveedores" class="list-item">proveedores</a>
+					</li>
+					<li ng-show="$root.authenticated == true">
+		              <a href="#/login" class="list-item fa fa-user fa-2x" title="Mi perfil"></a>
+					</li>
+					<li ng-show="$root.authenticated == false">
+		              <a href="#/login" class="list-item fa fa-sign-in fa-2x" title="Acceso Clientes"></a>
+					</li>
+
+<!-- 			        <li class="dropdown">
+			          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b>ACCESO</b> <span class="caret"></span></a>
+						<ul id="login-dp" class="dropdown-menu">
+							<li>
+								 <div class="row">
+										<div class="col-md-12">
+											Acceso vía
+											<div class="social-buttons">
+												<a href="#" class="btn btn-fb"><i class="fa fa-facebook"></i> Facebook</a>
+												<a href="#" class="btn btn-tw"><i class="fa fa-twitter"></i> Twitter</a>
+											</div>
+			                                o
+											 <form class="form" role="form" method="post" action="login" accept-charset="UTF-8" id="login-nav">
+													<div class="form-group">
+														 <label class="sr-only" for="exampleInputEmail2">Dirección de correo</label>
+														 <input type="email" class="form-control" id="exampleInputEmail2" placeholder="Correo electrónico" required>
+													</div>
+													<div class="form-group">
+														 <label class="sr-only" for="exampleInputPassword2">Contraseña</label>
+														 <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Contraseña" required>
+			                                             <div class="help-block text-right"><a href="">¿Olvidé la contraseña?</a></div>
+													</div>
+													<div class="form-group">
+														 <button type="submit" class="btn btn-primary btn-block">Registrarme</button>
+													</div>
+													<div class="checkbox">
+														 <label>
+														 <input type="checkbox"> Mantenme conectado
+														 </label>
+													</div>
+											 </form>
+										</div>
+										<div class="bottom text-center">
+											¿Nuevo aquí? <a href="#"><b>Únete a nosotros</b></a>
+										</div>
+								 </div>
+							</li>
+						</ul>
+			        </li>
+ -->
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+    <div class="main-wrapper">
+      <div ng-view></div>
+    </div>
+
+    <!-- Load Js libs -->
+	<script src="angular/angular.js"></script>
+	<script src="angular/angular-route.js"></script>
+	<script src="angular/angular-resource.js"></script>
+	<script src="angular/angular-messages.min.js"></script>
+	<script src="angular/angular-cookies.js"></script>
+
+	<script src="bootstrap3/js/jquery-1.11.3.min.js"></script>
+  	<script src="js/app.js"></script>
+	<script src="js/home.js"></script>
+	<script src="bootstrap3/js/bootstrap.min.js"></script>
+
+	<script src="proveedores/services.js"></script>
+	<script src="proveedores/controllers.js"></script>
+
+	<script src="cupones/services.js"></script>
+	<script src="cupones/controllers.js"></script>
+
+	<script src="clientes/services.js"></script>
+	<script src="clientes/controllers.js"></script>
+
+	<script src="js/hello/hello.all.js"></script>
+	<script src="login/services.js"></script>
+	<script src="login/controllers.js"></script>
+
+	<script src="cordova/ng-cordova-oauth.js"></script>
+  	<script src="cordova.js"></script>
+
+	<!-- encriptar sha la password del usuario para registrarse en el sistema. -->
+	<script src="js/sha.js"></script>
+	
+	<!-- ejemplo de código de encriptación de un texto en hexadecimal (base64 también es posible) 
+	
+	En la parte java del servidor hay que usar el siguiente código: 
+		MessageDigest.getInstance("SHA-512").digest(value.getBytes("UTF-8"));
+	
+	-->
+<!-- 	<script>
+		var shaObj = new jsSHA("SHA-512", "TEXT");
+		shaObj.update("This is a test");
+		var hash = shaObj.getHash("HEX");
+	</script>
+ -->
+  </body>
+</html>

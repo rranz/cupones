@@ -1,0 +1,74 @@
+Librería OAuth2.
+
+Requisitos previos:
+
+1. Crear un registro en Facebook para desarrolladores y registrar tu aplicación para que pueda obtener 
+un tocken OAuth2 de Facebook del usuario que se conecte a la aplicación y así validar su login (login.html example).
+
+	https://developers.facebook.com/apps
+	
+	1. Autenticarte
+	2. Añadir aplicación "Add a new app" del tipo "Sitio web"
+	3. Incluir un nombre de aplicación y pulsar el botón de "Create New Facebook App ID"
+	4. Definir la categoría como "Aplicaciones de páginas" y pulsar "Crear identificador de aplicación"
+	5. A continuación, se generará un id que podemos ver en el script de código de uso y
+		tenemos que definir la página de nuestra aplicación para que hello.js funcione correctamente al
+		pulsar el botón de login contra facebook (facebook valida que esta dirección sea la misma que la registrada)
+	   http://localhost:8080/cupones/login.html
+	
+
+	
+2. Incluir login facebook en nuestra aplicación Hybrid de Cordova.
+
+OpenFB librería de acceso a Facebook	
+
+	Descargar proyecto
+
+	https://github.com/ccoenraets/OpenFB
+
+
+Copiar todos los archivos en /www de nuestro proyecto.
+
+
+Incluir el ID de la aplicación creada en Fabebook en:
+ 
+openFB.init({appId: '601650163316034'});
+
+
+Cambiar en index.html read_stream por public_profile para evitar el error Invalid Scopes: publish_stream que
+se genera en modo depuración para desarrolladores. Entiendo que si instalamos la aplicación sin estar en este modo
+funcionaría.
+
+{scope: 'email,public_profile,publish_actions'});
+
+
+Construir e instalar en dispositivo android:
+
+cordova run android
+	
+	
+	
+HELLO.JS TWITTER
+-----------------------------------------------------------
+
+1. Crear aplicación en twitter
+
+2. Registrar en un servidor oauth que haga de proxy nuestra aplicación y credenciales (facebook no requerido).
+
+	En:  (web de hello.js que pone a disposición de la gente).
+	
+		https://auth-server.herokuapp.com/#-auth-server
+
+	1. En Signin añadir nuestra cuenta de twitter para login
+	2. En Manage apps añadir nuestra aplicación incluyendo los siguientes dtaos:
+	
+		Reference: cupones
+		Domain: http://192.168.1.128:8080
+		client_id: AdP3nCuoSB85iDl6XSiJWBKJS
+		client_secret: RILnNKE2PKj5AUhhDCvQeUwlaeoTp4HRGE0fhwCuv40Nz3KAja
+		
+		obtenidos de twitter en la pestaña de keys de nuestra aplicación.
+	
+	
+	
+	

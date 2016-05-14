@@ -1,0 +1,185 @@
+<div ng-controller="CuponesController">
+
+<!-- 	<h2>Cupones</h2>
+ -->
+<!-- 	<img src="img/cupones.png" class="img-responsive" style="width:100%; height:auto;"> 	
+ -->
+
+ 	
+ 	
+ 	
+<div style="width:100%; max-height: 400px">
+  <img src="img/cupones.png" style="width:100%; max-height: 400px">
+  <h1 class="overlay">Cupones</h1>
+</div>
+ 	
+<!-- <div class="wrapper" style="width:100%; height:auto;">
+  <img src="img/restaurante.jpg" alt="" class="img-responsive" style="width:100%; height:auto;"/>
+  <div class="overlay">
+    <h2>Image Name</h2>
+      
+  </div>
+</div> -->
+ 	
+<br> 	
+ 	<section style="margin:10px" id="browser" ng-hide='showform'>
+		 <div class="row">
+		 <!-- Bootstrap 4 -->
+<!-- 		  <div class="col-sm-6 col-md-4 col-lg-3 box-shadow--2dp"  ng-repeat="cupon in cupones">
+			<div class="card">
+				<img ng-src="{{cupon.imagen}}" class="card-img-top img-responsive" style="width:100%; height:auto;" ng-show="cupon.imagen != null"> 	
+				<img src="img/user.png" class="card-img-top img-responsive" style="width:100%; height:auto;" ng-show="cupon.imagen == null" > 	
+				<div class="card-block">
+					<h4 class="card-title">{{cupon.proveedor.nombre}}</h4>
+					<p class="card-text">{{cupon.nombre}}</p>
+					<div>
+						<a href="javascript:void(0)" class="btn btn-primary" ng-click="edit(cupon)">Editar</a>
+						<a href="javascript:void(0)" class="btn" ng-click="delete(cupon)">Eliminar</a>
+					</div>
+				</div>
+			</div>  
+		  </div>
+ -->		  
+		  <div class="col-sm-6 col-md-4 col-lg-3 box-shadow--2dp"  ng-repeat="cupon in cupones">
+		    <div class="thumbnail">
+				<img ng-src="{{cupon.imagen}}" class="card-img-top img-responsive img-rounded" style="width:100%; height:auto;" ng-show="cupon.imagen != null"> 	
+				<img src="img/user.png" class="card-img-top img-responsive" style="width:100%; height:auto;" ng-show="cupon.imagen == null" > 	
+		      <div class="caption">
+		        <h3>{{cupon.proveedor.nombre}}</h3>
+		        <p>{{cupon.nombre}}</p>
+				<div>
+					<a href="javascript:void(0)" class="btn btn-primary" ng-click="edit(cupon)">Editar</a>
+					<a href="javascript:void(0)" class="btn" ng-click="delete(cupon)">Eliminar</a>
+				</div>
+		      </div>
+		    </div>
+		  </div>
+		  
+		</div> 		
+
+		<div class="alert alert-danger" role="alert" ng-show='showerrors'>
+			<p>{{error}}</p>
+		</div>
+		
+		<br> <input type="button" value="Insertar" ng-click="new()" class="btn btn-primary" ng-show="offline"/> 
+		<br> 
+		<br>		
+		
+	</section>
+
+<!-- 			
+			<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+
+				<div class="box box-widget widget-user" style="cursor: hand;cursor: pointer;" ng-click="edit(cupon)">
+					Add the bg color to the header using any of the bg-* classes
+					<div class="widget-user-header bg-red" style="background: url({{cupon.imagen}}) center center;">
+						<h3 class="widget-user-username">{{cupon.nombre}}</h3>
+						<h5 class="widget-user-desc">{{cupon.descripcion}}</h5>
+					</div>
+					<div class="widget-user-image">
+						<img class="img-circle" src="{{cupon.proveedor.logo}}" alt="User Avatar">
+					</div>
+					<div class="box-footer">
+						<div class="row">
+							<div class="col-sm-4 border-right">
+								<div class="description-block">
+									<h5 class="description-header">3,200</h5>
+									<span class="description-text">SALES</span>
+								</div>/.description-block
+							</div>/.col
+							<div class="col-sm-4 border-right">
+								<div class="description-block">
+									<h5 class="description-header">13,000</h5>
+									<span class="description-text">FOLLOWERS</span>
+								</div>/.description-block
+							</div>/.col
+							<div class="col-sm-4">
+								<div class="description-block">
+									<h5 class="description-header">35</h5>
+									<span class="description-text">PRODUCTS</span>
+								</div>/.description-block
+							</div>/.col
+						</div>/.row
+					</div>
+				</div>/.widget-user
+ 			</div>
+ -->
+
+
+
+
+<!-- 	<table class="table table-striped table-bordered" ng-show="false">
+		<thead>
+			<tr>
+				<th>Proveedor</th>
+				<th>Nombre</th>
+				<th>Descripción</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="cupon in cupones">
+				<td>{{ cupon.proveedor.nombre }}</td>
+				<td>{{ cupon.nombre }}</td>
+				<td>{{ cupon.descripcion }}</td>
+				<td><a href="javascript:void(0)" ng-click="edit(cupon)">Editar</a>
+					| <a href="javascript:void(0)" ng-click="delete(cupon)">Eliminar</a>
+
+				</td>
+			</tr>
+		</tbody>
+	</table> -->
+	
+	<section id="form" style="margin: 10px">
+		<form class="well" name="cuponForm" ng-show='showform' novalidate>
+	
+			<h1>Cupón</h1>
+			
+			<div class="form-group" ng-class="{ 'has-error': cuponForm.name.$touched && cuponForm.name.$invalid }">
+				<label>Nombre</label>
+				<input type="text" name="name" id="name" class="form-control"
+				ng-model="newcupon.nombre"
+				ng-minlength="5"
+				ng-maxlength="100"
+				required>
+	
+				<div class="help-block" ng-messages="cuponForm.name.$error" ng-if="cuponForm.name.$touched">
+					<p ng-message="minlength">Nombre demasiado corto.</p>
+					<p ng-message="maxlength">Nombre demasiado largo.</p>
+					<p ng-message="required">Nombre requerido.</p>
+				</div>
+			</div>
+	
+			<!-- old sintaxis sin ngMessages
+			<p ng-show="cuponForm.name.$error.required" class="help-block">El nombre es requerido.</p>
+			<p ng-show="cuponForm.name.$error.minlength" class="help-block">El nombre deben tener al menos 4 caracteres.</p>
+		-->
+	
+			<div class="form-group" ng-class="{ 'has-error': cuponForm.descripcion.$touched && cuponForm.descripcion.$invalid }">
+				<label>Descripción</label>
+				<input type="text" name="descripcion" class="form-control" ng-model="newcupon.descripcion" required>
+				<div class="help-block" ng-messages="cuponForm.descripcion.$error" ng-if="cuponForm.descripcion.$touched">
+					<div ng-messages-include="templates/messages.html"></div>
+				</div>
+				<!--<p ng-show="cuponForm.descripcion.$invalid && !cuponForm.descripcion.$pristine" class="help-block">Descripción requerida.</p>-->
+			</div>
+		
+			<div class="form-group">
+				<label>Imagen</label>
+				<img src="{{newcupon.imagen}}" class="img-responsive"/>
+				<span class="btn btn-primary btn-file" style="margin-top: 2px">Buscar
+					<input id="imagen" type='file' ng-model-instant onchange="angular.element(this).scope().imageUpload(this)" />
+				</span>
+			</div>
+		
+			<input type="hidden" ng-model="newcupon.id" />
+		
+			<div>
+				<input type="button" value="Grabar" ng-disabled="cuponForm.$invalid" ng-click="save(newcupon)" class="btn btn-primary" />
+				<input type="button" value="Cancelar" ng-click="cancel()" class="btn btn-secundary" />
+			</div>
+		</form>
+		
+	</section>
+
+</div>
+

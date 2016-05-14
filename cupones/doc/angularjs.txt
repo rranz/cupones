@@ -1,0 +1,8 @@
+Notas sobre mi experiencia con AngularJs:
+
+Error de ejecución de una llamada $http.post() que debería ser sucess y devuelve error aunque la llamada se realiza correctamente:
+
+   Se produce porque se define una acción en el formulario (Ej.: action="#/login") y también definimos el evento ng-submit="register($event)" (desconozco los motivos pero el error se genera por esta causa).
+   
+   Tuve que eliminar la acción para que la llamada $http.post() en el método register($event); funcionara correctamente.
+   

@@ -1,0 +1,114 @@
+<div style="width: 100%" align="center" ng-controller="LoginController">
+	
+	<!-- perfil de usuario -->
+	<div id="div_profile" ng-show="showprofile && showregister == false" align="left" style="margin: 6px; margin-top: 50px; max-width: 400px;" >
+		<br><br><br><br>
+		<div  align="center">
+			<h2>Perfil de usuario</h2>
+			
+			<form ng-submit="saveProfile($event)" class="form" role="form" accept-charset="UTF-8" id="profile-nav">
+	
+				<div class="form-group">
+					<label>Foto</label>
+					<img src="{{profile.picture}}" class="img-responsive"/>
+					<span class="btn btn-primary btn-file" style="margin-top: 2px" ng-show="!profile.oauth">Buscar
+						<input id="imagen" type='file' ng-model-instant onchange="angular.element(this).scope().imageUpload(this)" />
+					</span>
+				</div>				
+				
+				<br>
+				<div class="form-group">
+					<label class="sr-only" for="profileName">Nombre</label>
+					<input type="text" ng-disabled="profile.oauth" ng-model="profile.name" class="form-control" id="profileName" maxlength="120" minlength="4" placeholder="Nombre" required>
+				</div>
+				<div class="form-group">
+					<label class="sr-only" for="profileEmail">Correo electrónico</label>
+					<input type="email" ng-disabled="profile.oauth" ng-model="profile.email" class="form-control" id="profileEmail" maxlength="120" minlength="4" placeholder="Correo electrónico" required>
+				</div>
+				<div class="form-group" ng-show="!profile.oauth">
+					<label class="sr-only" for="profilePassword">Contraseña</label>
+					<input type="password" ng-model="profile.password" class="form-control" maxlength="20" minlength="4" id="profilePassword" placeholder="Contraseña" required>
+				</div>
+				<div class="form-group" ng-show="!profile.oauth">
+					<button type="submit" class="btn btn-primary btn-block">Aplicar cambios</button>
+				</div>
+				<input type="hidden" ng-model="profile.id" /> 	
+			</form>			
+			
+		</div>
+	</div>
+	
+	<!-- registro -->
+	<div id="div_register" ng-show="showregister" align="left" style="margin: 6px; margin-top: 50px; max-width: 400px;" >
+		<br><br><br><br>
+		<div  align="center">
+			<h2>Registro de usuario</h2>
+			<br>
+			<form ng-submit="register($event)" class="form" role="form" accept-charset="UTF-8" id="login-nav">
+				<div class="form-group">
+					<label class="sr-only" for="profileName">Nombre</label>
+					<input type="text" ng-model="profile.name" class="form-control" id="profileName" maxlength="120" minlength="4" placeholder="Nombre" required>
+				</div>
+				<div class="form-group">
+					<label class="sr-only" for="profileEmail">Correo electrónico</label>
+					<input type="email" ng-model="profile.email" class="form-control" id="profileEmail" maxlength="120" minlength="4" placeholder="Correo electrónico" required>
+				</div>
+				<div class="form-group">
+					<label class="sr-only" for="profilePassword">Contraseña</label>
+					<input type="password" ng-model="profile.password" class="form-control" maxlength="20" minlength="4" id="profilePassword" placeholder="Contraseña" required>
+				</div>
+				<div class="form-group">
+					<button type="submit" class="btn btn-primary btn-block">Confirmar registro</button>
+				</div>
+			</form>
+		</div>
+	</div>	
+	
+	<!-- login -->
+	<div id="div_login" class="row" align="left" style="margin: 6px; margin-top: 50px; max-width: 400px;" ng-hide="showprofile || showregister == true">
+	
+		<div id="div_login" class="col-md-12">
+			<div  align="center">
+				<h2>Mi cuenta</h2>
+				<p>Introduce tu email y contraseña para iniciar tu sesión en CouponLand</p>				
+			</div>
+			<div class="social-buttons" align="center" >
+				<a href="javascript:void(0)" class="btn btn-primary btn-block" ng-click="loginOAuth('facebook')"><i class="fa fa-facebook"></i> Facebook</a>
+<!-- 				<a href="javascript:void(0)" class="btn btn-tw" ng-click="login('twitter')"><i class="fa fa-twitter"></i> Twitter</a>
+ -->				
+			</div>
+			<hr>
+			<form ng-submit="login($event)" class="form" role="form" method="post" accept-charset="UTF-8" id="login-nav">
+				<div class="form-group">
+					<label class="sr-only" for="exampleInputEmail">Correo electrónico</label>
+					<input type="email" ng-model="login.email"class="form-control" id="exampleInputEmail" maxlength="120" minlength="4" placeholder="Correo electrónico" required>
+				</div>
+				<div class="form-group">
+					<label class="sr-only" for="exampleInputPassword">Contraseña</label>
+					<input type="password" ng-model="login.password" class="form-control" maxlength="20" minlength="4" id="exampleInputPassword" placeholder="Contraseña" required>
+					<div class="help-block text-right">
+						<a href="">¿Olvidaste la contraseña?</a>
+					</div>
+				</div>
+				<div class="form-group">
+					<button type="submit" class="btn btn-success btn-block">Iniciar sesión</button>
+				</div>
+				
+				<div class="alert alert-danger" role="alert" ng-show="loginError">
+				  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+				  <span class="sr-only">Error:</span>
+				  Correo electrónico o contraseña incorrectos.
+				</div>				
+				
+				<div class="checkbox">
+					<label> <input type="checkbox"> Mantenme conectado
+					</label>
+				</div>
+			</form>
+		</div>
+		<div class="bottom text-center">
+			¿No eres usuario? <button ng-click="showregister = true" class="btn btn-info">Crea una cuenta</button>
+		</div>
+		<!-- <button type="submit" ng-click="showProfile(true)" class="btn btn-success btn-block">Entrar</button> -->
+	</div>
+</div>
